@@ -10,9 +10,6 @@ package com.mycompany.duelodeslimes;
  */
 public class DueloDeSlimes {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         
         Jogo jogo = new Jogo();
@@ -37,16 +34,14 @@ public class DueloDeSlimes {
                            4 - Anjo
                            5 - Demonio
                            
-                           
                            """);
         jogo.escolheAncestral();
         
         System.out.println("""
-                           -----------------------------------
+                           \n-----------------------------------
                            INICIADO O JOGO
-                           -----------------------------------
-                           """);
-        
+                           -----------------------------------""");
+        jogo.jogar();
     }
     
 }

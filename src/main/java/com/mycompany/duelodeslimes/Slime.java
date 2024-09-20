@@ -75,15 +75,24 @@ public class Slime {
     
     
     public void ataque(Slime s){
-        float dano = this.multiplicador - s.resistencia + energia;
+        System.out.println("ataque");
+        float dano;
+        //if(especial???)
+        dano = this.multiplicador - s.resistencia + this.energia;
+        s.vida = s.vida - dano;
+        this.energia--;
     }
     
     public void energizar(){
-        
+        System.out.println("energizar");
+        this.energia = this.energia - 2;
     }
     
-    public void especial(){
-        
+    public boolean especial(){
+        System.out.println("especial slime");
+        this.ancestral.especial(this);
+        this.energia = this.energia - 4;
+        return true;
     }
     
     

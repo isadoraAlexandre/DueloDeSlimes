@@ -19,8 +19,8 @@ public class Vampiro extends Ancestral{
     }
 
     @Override
-    public void especial() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void especial(Slime s) {
+        System.out.println("especial vampiro");
     }
     
     

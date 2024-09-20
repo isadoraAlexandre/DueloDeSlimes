@@ -14,5 +14,5 @@ public abstract class Ancestral {
     }
     
     public abstract String imprimeTexto();
-    public abstract void especial();
+    public abstract void especial(Slime s);
 }

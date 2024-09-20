@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.duelodeslimes;
 
 import java.util.Scanner;
 
-/**
- *
- * @author isinha
- */
 public class Jogo {
     private Slime a;
     private Slime b;
@@ -40,7 +32,7 @@ public class Jogo {
             case 5:
                 return new Demonio();
             default:
-                throw new AssertionError();
+                throw new AssertionError("opcao nao existe");
         }
     }
     
@@ -48,21 +40,21 @@ public class Jogo {
         switch (n) {
             case 0:
                 break;
-            case 0:
+            case 1:
+                s.ataque(s);
                 break;
-            case 0:
+            case 2:
+                s.energizar();
                 break;
             case 3:
-                ;
+                s.especial();
+                break;
             default:
                 throw new AssertionError();
         }
     }
     private void imprimeTextoTurno(Slime s){
-        System.out.println("""
-                               -----------------------------------
-                               TURNO DO SLIME """);
-        System.out.println(s.getNome() + "-----------------------------------\n");
+        
         System.out.println("Vida atual dos slimes: A: " + a.getVida() + " B: " + b.getVida());
         System.out.println("Digite a habilidade para o slime " + s.getNome() + " usar: (energia restante: " + s.getEnergia() + ")");
         System.out.println("""
@@ -83,18 +75,26 @@ public class Jogo {
         b.setAncestral(opcoesAncestral(leitura()));
     }
     
-    public void turno(){
-        
+    public void turno(Slime s){
+        System.out.println("\n-----------------------------------\nTURNO DO SLIME " + s.getNome() + "\n-----------------------------------\n");
+        int h;
         do{
-            imprimeTextoTurno(a);
-            
-        
+            imprimeTextoTurno(s);
+            h = leitura();
+            opcoesHabilidade(h, s);
+            System.out.println();
         }
-        while(true);
-        
+        while(h != 0 && s.getEnergia() >= 0);
+            
     }
-    
+     
     public void jogar(){
-        
+        do{
+            turno(a);
+            turno(b);
+        }
+        while(a.getVida() <= 0 || b.getVida() <= 0);
     }
 }
+    
+
