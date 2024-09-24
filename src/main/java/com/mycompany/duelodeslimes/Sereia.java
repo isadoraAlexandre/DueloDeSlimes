@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.duelodeslimes;
 
-/**
- *
- * @author isinha
- */
 public class Sereia extends Ancestral {
 
     public Sereia() {
@@ -19,8 +11,11 @@ public class Sereia extends Ancestral {
     }
 
     @Override
-    public void especial(Slime s) {
-        System.out.println("especial sereia");
+    public void especial(Slime s, Slime alvo) {
+        if(s.getEnergia() >= 6){
+            s.setEnergia(2.0);
+            alvo.setEnergia(0.0);
+        }
     }
      
 }

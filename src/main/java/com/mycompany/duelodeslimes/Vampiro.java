@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.duelodeslimes;
 
-/**
- *
- * @author isinha
- */
 public class Vampiro extends Ancestral{
 
     public Vampiro() {
@@ -19,8 +11,10 @@ public class Vampiro extends Ancestral{
     }
 
     @Override
-    public void especial(Slime s) {
-        System.out.println("especial vampiro");
+    public void especial(Slime s, Slime alvo) {
+        s.setDano(2.0);
+        alvo.setVida(alvo.getVida() - 2.0);
+        s.setVida(s.getVida() + 1.0);
     }
     
     

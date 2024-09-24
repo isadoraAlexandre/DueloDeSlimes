@@ -1,20 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.duelodeslimes;
 
-/**
- *
- * @author isinha
- */
 public class Slime {
-    private float vida;
-    private float multiplicador;
-    private float resistencia;
-    private float energia;
+    private double vida;
+    private double multiplicador;
+    private double resistencia;
+    private double energia;
     private Ancestral ancestral;
     private String nome;
+    private int energizou;
+    private double dano;
+    private boolean invulneravel;
 
     public Slime(String nome) {
         this.vida = 10;
@@ -22,37 +17,38 @@ public class Slime {
         this.resistencia = 0;
         this.energia = 5;
         this.nome = nome;
+        this.energizou = 0;
     }
 
-    public float getVida() {
+    public double getVida() {
         return vida;
     }
 
-    public void setVida(float vida) {
+    public void setVida(double vida) {
         this.vida = vida;
     }
 
-    public float getMultiplicador() {
+    public double getMultiplicador() {
         return multiplicador;
     }
 
-    public void setMultiplicador(float multiplicador) {
+    public void setMultiplicador(double multiplicador) {
         this.multiplicador = multiplicador;
     }
 
-    public float getResistencia() {
+    public double getResistencia() {
         return resistencia;
     }
 
-    public void setResistencia(float resistencia) {
+    public void setResistencia(double resistencia) {
         this.resistencia = resistencia;
     }
 
-    public float getEnergia() {
+    public double getEnergia() {
         return energia;
     }
 
-    public void setEnergia(float energia) {
+    public void setEnergia(double energia) {
         this.energia = energia;
     }
 
@@ -71,28 +67,51 @@ public class Slime {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public double getEnergizou() {
+        return energizou;
+    }
+
+    public void setEnergizou(int energizou) {
+        this.energizou = energizou;
+    }
+
+    public double getDano() {
+        return dano;
+    }
+
+    public void setDano(double dano) {
+        this.dano = dano;
+    }
     
-    
-    
-    public void ataque(Slime s){
+    public void ataque(Slime recebe){
         System.out.println("ataque");
-        float dano;
-        //if(especial???)
-        dano = this.multiplicador - s.resistencia + this.energia;
-        s.vida = s.vida - dano;
+        
+        this.dano = this.multiplicador - recebe.resistencia + this.energizou * 0.5;
+        recebe.vida = recebe.vida - this.dano;
         this.energia--;
+    }
+
+    public boolean isInvulneravel() {
+        return invulneravel;
+    }
+
+    public void setInvulneravel(boolean invulneravel) {
+        this.invulneravel = invulneravel;
     }
     
     public void energizar(){
-        System.out.println("energizar");
-        this.energia = this.energia - 2;
+        if(this.energia >= 0.0){
+            this.energia = this.energia - 2;
+            this.energizou = 1;
+        }
     }
     
-    public boolean especial(){
-        System.out.println("especial slime");
-        this.ancestral.especial(this);
-        this.energia = this.energia - 4;
-        return true;
+    public void especial(Slime alvo){
+        if(this.energia >= 0.0){
+            this.ancestral.especial(this, alvo);
+            this.energia = this.energia - 4;
+        }
     }
     
     

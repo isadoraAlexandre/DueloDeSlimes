@@ -32,25 +32,25 @@ public class Jogo {
             case 5:
                 return new Demonio();
             default:
-                throw new AssertionError("opcao nao existe");
+                return null;
         }
     }
     
-    private void opcoesHabilidade(int n, Slime s){
+    private void opcoesHabilidade(int n, Slime s, Slime alvo){
         switch (n) {
             case 0:
                 break;
             case 1:
-                s.ataque(s);
+                s.ataque(alvo);
                 break;
             case 2:
                 s.energizar();
                 break;
             case 3:
-                s.especial();
+                s.especial(alvo);
                 break;
             default:
-                throw new AssertionError();
+                break;
         }
     }
     private void imprimeTextoTurno(Slime s){
@@ -75,25 +75,51 @@ public class Jogo {
         b.setAncestral(opcoesAncestral(leitura()));
     }
     
-    public void turno(Slime s){
+    public boolean turno(Slime s, Slime alvo){
         System.out.println("\n-----------------------------------\nTURNO DO SLIME " + s.getNome() + "\n-----------------------------------\n");
-        int h;
+        int habilidade;
         do{
             imprimeTextoTurno(s);
-            h = leitura();
-            opcoesHabilidade(h, s);
+            habilidade = leitura();
+            opcoesHabilidade(habilidade, s, alvo);
+            
+            if(vencedor())
+                return true;
+            
             System.out.println();
         }
-        while(h != 0 && s.getEnergia() >= 0);
-            
+        while(habilidade != 0 && s.getEnergia() > 0 );
+        
+        if(s.isInvulneravel())
+            s.setMultiplicador(s.getMultiplicador() - 2.0);
+        
+        s.setInvulneravel(false);
+        s.setEnergizou(0);
+        s.setEnergia(s.getEnergia() + 2);
+        return false;
+    }
+    
+    private boolean vencedor(){
+        if(this.a.getVida() <= 0.0){
+            System.out.println("\n-----------------------------------\nSLIME B VENCEU\n-----------------------------------\n");
+            return true;
+        }
+        else if(this.b.getVida() <= 0.0){
+            System.out.println("\n-----------------------------------\nSLIME A VENCEU\n-----------------------------------\n");
+            return true;
+        }
+        else
+            return false;
     }
      
     public void jogar(){
-        do{
-            turno(a);
-            turno(b);
+        while(true){
+            if(turno(a, b))
+                break;
+            
+            if(turno(b, a))
+                break;
         }
-        while(a.getVida() <= 0 || b.getVida() <= 0);
     }
 }
     
