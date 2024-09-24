@@ -13,6 +13,7 @@ public class Dragao extends Ancestral {
     @Override
     public void especial(Slime s, Slime alvo) {
         s.setInvulneravel(true);
+        s.setMultiplicador(s.getMultiplicador() + (float)0.2);
     }
     
 }
